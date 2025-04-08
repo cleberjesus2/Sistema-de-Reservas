@@ -22,13 +22,25 @@ public class HospedeService {
         System.out.println("Seus dados foram alterados com sucesso !");
     }
 
-    public void consultarDados(String cpf) throws HospedeNaoEncontradoException {
-        if (!hospedes.equals(cpf)) {
-            throw new HospedeNaoEncontradoException("CPF Não Encontrado! Este hóspede não está cadastrado.");
+    public void consultarDadosPorCpf(String cpf) throws HospedeNaoEncontradoException {
+        boolean encontrado = false;
+
+        for (Hospede h : hospedes) {
+            if (h.getCpf().equals(cpf)) {
+                System.out.println(" CPF do hóspede encontrado! Seguem os dados:");
+                System.out.println("Nome: " + h.getNome());
+                System.out.println("Telefone: " + h.getTelefone());
+                System.out.println("E-mail: " + h.getEmail());
+                encontrado = true;
+                break;
+            }
         }
-        System.out.println("CPF DO HOSPEDE ENCONTRADO ! SEGUE OS DADOS: ");
-        System.out.println("Nome: ");
+
+        if (!encontrado) {
+            throw new HospedeNaoEncontradoException(" CPF não encontrado! Este hóspede não está cadastrado.");
+        }
     }
+
 
 
     public void consultarDados(Hospede hospede){
